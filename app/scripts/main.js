@@ -32,9 +32,13 @@ if (!('webkitSpeechRecognition' in window)) {
   var recognition = new webkitSpeechRecognition();
   recognition.continuous = true;
   recognition.interimResults = false;
+  recognition.lang = 'tr-TR';
 
   recognition.onstart = function() {
     isConnected = true;
+
+    hideWarning();
+
     $('.call-button')
       .removeClass('start')
       .addClass('stop')
@@ -58,9 +62,14 @@ if (!('webkitSpeechRecognition' in window)) {
   recognition.onerror = function(event) {
     console.log('Error: ', event);
 
-    setTimeout(function() {
-      startRecognition();
-    }, 1000);
+    if (event.error == 'not-allowed') {
+      ringback_player.stop();
+      stopRecognition();
+    } else {
+      setTimeout(function() {
+        startRecognition();
+      }, 1000);
+    }
   }
 
   recognition.onend = function() {
@@ -73,13 +82,29 @@ function capitalize(s) {
   return s.replace(first_char, function(m) { return m.toUpperCase(); });
 }
 
+function upgrade() {
+  $('.upgrade').removeClass('hide');
+  $('.call-button').addClass('hide');
+}
+
+function hideWarning() {
+  $('.allow').addClass('hide');
+}
+
+function showWarning() {
+  $('.allow')
+    .removeClass('hide');
+}
+
 function startRecognition() {
   stopRecognition();
+  showWarning();
   recognition.start();
 }
 
 function stopRecognition() {
   isConnected = false;
+  hideWarning();
   recognition.stop();
   clearTimeout(queueCallback);
 }
@@ -124,8 +149,7 @@ function queueRandomAudio() {
 
 $('body').on('click', '.call-button.start', function (e) {
   ringback_player = play(ringback).loop();
-  recognition.lang = 'tr-TR';
-  recognition.start();
+  startRecognition();
 });
 
 $('body').on('click', '.call-button.stop', function (e) {
