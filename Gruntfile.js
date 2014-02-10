@@ -307,6 +307,7 @@ module.exports = function (grunt) {
                         'audio/{,*/}*.*',
                         '{,*/}*.html',
                         'styles/fonts/{,*/}*.*',
+                        'bower_components/sass-bootstrap/fonts/*.*',
                         'bower_components/' + (this.includeCompass ? 'sass-' : '') + 'bootstrap/' + (this.includeCompass ? 'fonts/' : 'dist/fonts/') +'*.*'
                     ]
                 }]
