@@ -2,7 +2,7 @@ var queueCallback = null;
 var isConnected = false;
 var format = '.mp3';
 
-var audioRoot = '/audio/';
+var audioRoot = 'audio/';
 var efendim = {
   src: 'efendim',
   transcript: 'Efendim?'
