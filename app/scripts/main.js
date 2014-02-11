@@ -126,7 +126,13 @@ function play(src) {
     transcript("FATIH", src.transcript);
     src = src.src;
   }
-  return new buzz.sound(audioRoot + src + format).play();
+  var sound = new Howl({
+    urls: [audioRoot + src + '.mp3', audioRoot + src + '.wav'],
+  });
+
+  sound.play();
+
+  return sound;
 }
 
 function playRandom() {
@@ -148,7 +154,8 @@ function queueRandomAudio() {
 
 
 $('body').on('click', '.call-button.start', function (e) {
-  ringback_player = play(ringback).loop();
+  ringback_player = play(ringback);
+  ringback_player.loop(true);
   startRecognition();
 });
 
