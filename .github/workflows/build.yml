@@ -1,0 +1,29 @@
+name: Build
+on:
+  push:
+    branches:
+      - master
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - name: Build
+        run: |
+          gem install compass
+          yarn install
+          npx --yes bower install
+          npx --yes grunt build
+      # - name: Deploy
+      #   uses: JamesIves/github-pages-deploy-action@v4
+      #   with:
+      #     folder: build # The folder the action should deploy.
+      #     branch: gh-pages # The branch the action should deploy to.
