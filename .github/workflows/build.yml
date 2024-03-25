@@ -21,7 +21,7 @@ jobs:
           gem install compass
           yarn install
           npx --yes bower install
-          npx --yes grunt build
+          npx --yes grunt-cli build
       # - name: Deploy
       #   uses: JamesIves/github-pages-deploy-action@v4
       #   with:
