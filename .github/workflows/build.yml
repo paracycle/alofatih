@@ -22,8 +22,8 @@ jobs:
           yarn install
           npx --yes bower install
           npx --yes grunt-cli build
-      # - name: Deploy
-      #   uses: JamesIves/github-pages-deploy-action@v4
-      #   with:
-      #     folder: build # The folder the action should deploy.
-      #     branch: gh-pages # The branch the action should deploy to.
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build # The folder the action should deploy.
+          branch: gh-pages # The branch the action should deploy to.
